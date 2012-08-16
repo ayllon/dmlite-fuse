@@ -8,6 +8,9 @@ int dmlite_fuse_getattr(const char * path, struct stat * stat)
   dmlite_fuse_private *private = GET_PRIVATE();
   int e = dmlite_statl(private->context, path, stat);
   
+  if (S_ISDIR(stat->st_mode))
+    stat->st_nlink += 2; /* Add . and .. */
+  
   if (e == 0)
     DMLITE_FUSE_LOG_FMT("getattr %s", path);
   else
