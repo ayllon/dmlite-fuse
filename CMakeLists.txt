@@ -7,7 +7,6 @@ add_definitions (-D_REENTRANT -D_FILE_OFFSET_BITS=64 -DFUSE_USE_VERSION=26)
 
 # Build
 add_executable (dmlite-fuse dmlite-fuse.c
-                            errno-mapping.c
                             io.c
                             ns.c)
 

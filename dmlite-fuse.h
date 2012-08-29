@@ -27,9 +27,7 @@ typedef struct dmlite_fuse_private {
 #ifdef	__cplusplus
 extern "C" {
 #endif
-  
-int   dmlite_fuse_map_errno(int dmerrno);
-  
+
 int   dmlite_fuse_getattr(const char * path, struct stat * stat);
 int   dmlite_fuse_readlink(const char *path, char *target, size_t tsize);
 int   dmlite_fuse_mkdir(const char *path, mode_t mode);

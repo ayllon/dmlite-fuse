@@ -17,7 +17,7 @@ int dmlite_fuse_getattr(const char * path, struct stat * stat)
     DMLITE_FUSE_LOG_FMT("getattr %s failed: %s", path,
                         dmlite_error(private->context));
   
-  return dmlite_fuse_map_errno(e);
+  return -e;
 }
 
 
@@ -33,7 +33,7 @@ int dmlite_fuse_readlink(const char *path, char *target, size_t tsize)
     DMLITE_FUSE_LOG_FMT("readlink %s failed: %s", path,
                         dmlite_error(private->context));
   
-  return dmlite_fuse_map_errno(e);
+  return -e;
 }
 
 
@@ -49,7 +49,7 @@ int dmlite_fuse_mkdir(const char *path, mode_t mode)
     DMLITE_FUSE_LOG_FMT("mkdir %s failed: %s", path,
                         dmlite_error(private->context));
   
-  return dmlite_fuse_map_errno(e);
+  return -e;
 }
 
 
@@ -65,7 +65,7 @@ int dmlite_fuse_unlink(const char * path)
     DMLITE_FUSE_LOG_FMT("unlink %s failed: %s", path,
                         dmlite_error(private->context));
   
-  return dmlite_fuse_map_errno(e);
+  return -e;
 }
 
 
@@ -81,7 +81,7 @@ int dmlite_fuse_rename(const char *oldname, const char *newname)
     DMLITE_FUSE_LOG_FMT("rename %s failed: %s", oldname,
                         dmlite_error(private->context));
   
-  return dmlite_fuse_map_errno(e);
+  return -e;
 }
 
 
@@ -97,7 +97,7 @@ int dmlite_fuse_rmdir(const char* path)
     DMLITE_FUSE_LOG_FMT("rmdir %s failed: %s", path,
                         dmlite_error(private->context));
   
-  return dmlite_fuse_map_errno(e);
+  return -e;
 }
 
 
@@ -113,7 +113,7 @@ int dmlite_fuse_symlink(const char *oldpath, const char *newpath)
     DMLITE_FUSE_LOG_FMT("symlink %s failed: %s", oldpath,
                         dmlite_error(private->context));
   
-  return dmlite_fuse_map_errno(e);
+  return -e;
 }
 
 
@@ -129,7 +129,7 @@ int dmlite_fuse_chmod(const char *path, mode_t mode)
     DMLITE_FUSE_LOG_FMT("chmod %s failed: %s", path,
                         dmlite_error(private->context));
   
-  return dmlite_fuse_map_errno(e);
+  return -e;
 }
 
 
@@ -145,7 +145,7 @@ int dmlite_fuse_chown(const char *path, uid_t uid, gid_t gid)
     DMLITE_FUSE_LOG_FMT("chmod %s failed: %s", path,
                         dmlite_error(private->context));
   
-  return dmlite_fuse_map_errno(e);
+  return -e;
 }
 
 
@@ -161,7 +161,7 @@ int dmlite_fuse_utime(const char *path, struct utimbuf *buf)
     DMLITE_FUSE_LOG_FMT("utime %s failed: %s", path,
                         dmlite_error(private->context));
   
-  return dmlite_fuse_map_errno(e);
+  return -e;
 }
 
 
