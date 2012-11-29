@@ -17,7 +17,6 @@
 typedef struct dmlite_fuse_private {
   dmlite_manager *manager;
   dmlite_context *context;
-  dmlite_credentials creds;
 } dmlite_fuse_private;
 
 #define GET_PRIVATE() ((dmlite_fuse_private*)(fuse_get_context()->private_data))

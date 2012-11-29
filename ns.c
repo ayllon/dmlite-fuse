@@ -1,7 +1,12 @@
 #include <dmlite/c/dmlite.h>
 #include <dmlite/c/catalog.h>
+#include <grp.h>
+#include <pwd.h>
+#include <string.h>
 #include <unistd.h>
 #include "dmlite-fuse.h"
+
+
 
 int dmlite_fuse_getattr(const char * path, struct stat * stat)
 {
@@ -188,12 +193,20 @@ void* dmlite_fuse_init(struct fuse_conn_info *conn)
     abort();
   }
   
-  private->creds.client_name = getlogin();
-  if (private->creds.client_name == NULL)
-    private->creds.client_name = "root";
+  uid_t uid = geteuid();
+  gid_t gid = getegid();
+  struct passwd *usr = getpwuid(uid);
+  struct group  *grp = getgrgid(gid);
+
+  dmlite_credentials creds;
+  memset(&creds, 0, sizeof(creds));
+  creds.client_name = usr->pw_name;
+  creds.nfqans = 1;
+  creds.fqans  = (const char**)(&(grp->gr_name));
+  creds.mech   = "SYSTEM";
   
-  DMLITE_FUSE_LOG_FMT("Using user %s", private->creds.client_name);
-  if (dmlite_setcredentials(private->context, &private->creds) != 0) {
+  DMLITE_FUSE_LOG_FMT("Using user %s:%s", creds.client_name, creds.fqans[0]);
+  if (dmlite_setcredentials(private->context, &creds) != 0) {
     DMLITE_FUSE_LOG_FMT("Could not set the credentials: %s",
                         dmlite_error(private->context));
     dmlite_context_free(private->context);
