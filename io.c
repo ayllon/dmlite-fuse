@@ -27,7 +27,7 @@ int dmlite_fuse_open(const char *path, struct fuse_file_info *finfo)
   char full_path[1024];
   snprintf(full_path, sizeof(full_path), "%s:%s",
            loc->chunks[0].url.domain, loc->chunks[0].url.path);
-  dmlite_location_free(private->context, loc);
+  dmlite_location_free(loc);
 
   dmlite_fd* fd = dmlite_fopen(private->context, full_path,
                                O_RDONLY | O_INSECURE,
